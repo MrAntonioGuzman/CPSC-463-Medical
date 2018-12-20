@@ -1,0 +1,80 @@
+{% extends 'registration/index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Personal Information - Medi-Cal App
+{% endblock %}
+
+{% block card-header %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="{% url 'personal_info_signup' %}">Personal Info</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Medical Info
+            </li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block card-title %}
+    Medi-Cal
+{% endblock %}
+
+{% block card-subtitle %}
+    Connect with your Doctor!
+{% endblock %}
+
+
+{% block card_stuff %}
+    mt-5 mb-5
+{% endblock %}
+
+{% block card-content %}
+    <div class="row mb-3">
+        <div class="col-8 mx-auto">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        {{ form.street_address|as_crispy_field }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form.city|as_crispy_field }}
+                    </div>
+                    <div class="col">
+                        {{ form.state|as_crispy_field }}
+                    </div>
+                    <div class="col">
+                        {{ form.zip|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form.social_security|as_crispy_field }}
+                    </div>
+                    <div class="col">
+                        {{ form.dob|as_crispy_field }}
+                    </div>
+                </div>
+                {{ form.primary_phone|as_crispy_field }}
+                <div class="row">
+                    <div class="col">
+                        {{ form.sex|as_crispy_field }}
+                    </div>
+                    <div class="col">
+                        {{ form.martial_status|as_crispy_field }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3 mb-3">Submit
+                </button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

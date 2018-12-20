@@ -1,0 +1,54 @@
+{% extends 'registration/index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Login - Medi-Cal
+{% endblock %}
+
+{% block card-title %}
+    Medi-Cal
+{% endblock %}
+
+{% block card-subtitle %}
+    Connect with your Doctor!
+{% endblock %}
+
+{% block container_stuff %}
+    mt-5
+{% endblock %}
+
+{% block card_stuff %}
+    mt-5 mb-5
+{% endblock %}
+
+{% block card-content %}
+    <div class="row mb-3">
+        <div class="col-8 mx-auto">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        {{ form.first_name|as_crispy_field }}
+                    </div>
+
+                    <div class="col">
+                        {{ form.last_name|as_crispy_field }}
+                    </div>
+                </div>
+
+                {{ form.email|as_crispy_field }}
+                {{ form.username|as_crispy_field }}
+                {{ form.password1|as_crispy_field }}
+                {{ form.password2|as_crispy_field }}
+                <button type="submit" class="btn btn-success">Sign up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block card-footer %}
+    <div class="card-footer text-center">
+        <p class="mb-2 mt-2">Already have an account? <a href="{% url 'login' %}">Login!</a></p>
+    </div>
+{% endblock %}

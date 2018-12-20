@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Doctors - Medi-Cal
+{% endblock %}
+
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">Medi-Cal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <span class="navbar-text ml-auto">
+                    Welcome, {{ user.first_name }} {{ user.last_name }}
+                </span>
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'doctors' %}">Doctors<span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_profile' %}">Profile</a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+    </header>
+
+{% endblock %}
+
+{% block main %}
+    <main>
+        <div class="container mt-5">
+            <div class="jumbotron">
+                <h1 class="display-4 text-center">Find the perfect doctor!</h1>
+                <p class="lead text-center">
+                    More than 1,000,000 doctors around the country are at the palm of your fingertips.
+                </p>
+                <hr class="my-4">
+
+                <p class="text-center">
+                    Search by county, for example "Los Angeles County".
+                </p>
+
+                <div class="container col-10">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Example select</label>
+                            <select class="form-control" id="exampleFormControlSelect1" name="counties">
+                                <option>Select a County</option>
+                                {% for county in counties %}
+                                    <option>{{ county.county_name }}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="container mt-5" id="doctor-container">
+                    <h4 class="text-center" id="no-doctors-found"></h4>
+                    <div class="list-group" id="doctor-list-group">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+
+        $(function () {
+            $("select").change(function () {
+                $('select option:selected').each(function () {
+                    $("#doctor-list-group").empty();
+                    var selected = $(this).text();
+                    $.ajax({
+                        url: "/ajax_search",
+                        data: {
+                            'selected': selected
+                        },
+                        success: function (data) {
+                            if (!data) {
+                                $("#doctor-list-group").empty();
+                                $("#no-doctors-found").text("No Doctors in the Area!");
+
+                            } else {
+                                $("#no-doctors-found").text("");
+                                data = JSON.parse(data)[0];
+                                console.log(data);
+                                $("#doctor-list-group").append(
+                                    "<a href='#' class='list-group-item list-group-item-action'>" +
+                                    "<div class='row'>" +
+                                    "<div class='col'>" + data['fields'].full_name + "</div>" +
+                                    "<div class='col'>" + data['fields'].speciality + "</div>" +
+                                    "<div class='col'>" + data['fields'].hospital + "</div>" +
+                                    "<div class='col'>" + data['fields'].address + "</div>" +
+                                    "</div>" +
+                                    "</a>"
+                                )
+                            }
+                        }
+                    })
+                });
+
+            });
+
+
+        });
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+first: Antonio
+last: Guzman
+email: antonio@gmail.com
+username: a_guzman
+password: 1qaz!QAZ
+
+/* With the new login system!! (Signup Info => Personal Info => Medical Info => Home!)
+New Member, Joined 11-20-18
+first: Kim
+last: Bee
+email: beehave@gmail.com
+username: harambee
+password: 1qaz!QAZ
+
+street: 123 Filmview
+city: Clovis
+state: NM
+zip: 88103
+social: 123456789
+dob: 11-19-87
+phone: (123)456-7890
+sex: Female
+Martial: divorced
+
+Height: 182
+Weight: 160
+Blood: A+
+Stroke: No
+Diabetes: No
+Alchohol: Yes
+Arthritis: No
+Tuber: No
+Allergies: Beans, Kiwi, Lentils, Strawberries
+Medication: Adderall, Xanax, Medicinal Marijuana

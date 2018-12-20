@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<!-- Change to search medicine information -->
+{% block title %}
+    Recipes - Medical App
+{% endblock %}
+
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">Medi-Cal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <span class="navbar-text ml-auto">
+                    Welcome, {{ user.first_name }} {{ user.last_name }}
+                </span>
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'doctors' %}">Doctors</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_profile' %}">Profile</a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+
+
+{% block main %}
+    <main>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <!-- Sub menu showing options for dashboard -->
+                <div class="col-2">
+                    <div class="list-group">
+                        <a href="{% url 'home' %}" class="list-group-item list-group-item-action">
+                            News
+                        </a>
+                        <a href="{% url 'schedule_appt' %}" class="list-group-item list-group-item-action">
+                            Schedule
+                        </a>
+                        <a href="{% url 'inbox' %}" class="list-group-item list-group-item-action">
+                            Inbox
+                        </a>
+                        <a href="{% url 'provider' %}" class="list-group-item list-group-item-action">
+                            Provider
+                        </a>
+                        <a href="{% url 'recipes' %}" class="list-group-item list-group-item-action active">
+                            Medicine Info
+                        </a>
+                        <a href="{% url 'b4-logout' %}" class="list-group-item list-group-item-action">
+                            Log out
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-10">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="text-center">Medicine Information</h5>
+                            <p class="text-center mb-0">
+                                <a href="https://open.fda.gov">
+                                    Powered by openFDA API
+                                </a>
+                            </p>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8 mx-auto">
+                                        <form>
+                                            {{ form|crispy }}
+                                            <button class="btn btn-primary" id="btn-search-medicine">Search</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container" id="medicine-info-container">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <!--
+    Ibuprofen
+    Tylenol
+    Nexium (esomeprazole)
+    -->
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            String.prototype.toProperCase = function () {
+                return this.replace(/\w\S*/g, function (txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
+            };
+            $("#btn-search-medicine").click(function (e) {
+                e.preventDefault();
+                var input = $("input[name='medicine']").val();
+                var url = "https://api.fda.gov/drug/label.json?search=drug_interactions:" + input + "&limit=1";
+
+                $.getJSON(url, function (data) {
+                    $.each(data.results[0], function (key, value) {
+                        console.log(value);
+                        var newKey = key.replace(/_/g, ' ');
+                        $("#medicine-info-container").append(
+                            "<div class='container col-10'>" +
+                            "<h2 class='mt-3 mt-3'>" + newKey.toProperCase() + "</h5>" +
+                            "<p class='mb-5'>" + value + "</p>" +
+                            "</div>"
+                        )
+
+                    });
+
+                });
+
+            })
+        })
+    </script>
+{% endblock %}

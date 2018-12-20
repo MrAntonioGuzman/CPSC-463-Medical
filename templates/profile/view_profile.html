@@ -1,0 +1,517 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<!-- Change to search medicine information -->
+{% block title %}
+    View Profile - Medical App
+{% endblock %}
+
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">Medi-Cal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <span class="navbar-text ml-auto">
+                    Welcome, {{ user.first_name }} {{ user.last_name }}
+                </span>
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'doctors' %}">Doctors</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'view_profile' %}">Profile <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+
+
+{% block main %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-account-list" data-toggle="list"
+                       href="#list-account" role="tab" aria-controls="home">Account</a>
+                    <a class="list-group-item list-group-item-action" id="list-personal-list" data-toggle="list"
+                       href="#list-personal" role="tab" aria-controls="profile">Personal</a>
+                    <a class="list-group-item list-group-item-action" id="list-medical-list" data-toggle="list"
+                       href="#list-medical" role="tab" aria-controls="settings">Medical</a>
+                </div>
+            </div>
+            <div class="col-8 mb-5">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-account" role="tabpanel"
+                         aria-labelledby="list-account-list">
+
+                        <div class="row align-self-center w-100">
+                            <div class="col-8 mx-auto">
+                                <div class="card">
+                                    <div class="card-header ">
+                                        <h5 class="text-center mb-0">
+                                            Patient Profile
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                First Name:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ user.first_name }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Last Name:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ user.last_name }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Email:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ user.email }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Username:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ user.username }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                password:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>********</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="list-personal" role="tabpanel" aria-labelledby="list-personal-list">
+                        <div class="row align-self-center w-100">
+                            <div class="col-8 mx-auto">
+                                <div class="card">
+                                    <div class="card-header ">
+                                        <h5 class="text-center mb-0">
+                                            Personal Profile
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Street:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.street_address }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                City:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.city }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                State:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.state }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Zip:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.zip }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Social:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.social_security }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                DOB:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.dob }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Sex:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.sex }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Martial:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.martial_status }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Phone:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ personal.primary_phone }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-medical" role="tabpanel" aria-labelledby="list-medical-list">
+                        <div class="row align-self-center w-100">
+                            <div class="col-8 mx-auto">
+                                <div class="card">
+                                    <div class="card-header ">
+                                        <h5 class="text-center mb-0">
+                                            Medical Profile
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Blood type:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.blood_type }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Height:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.height }} cm</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Weight:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.weight }} lbs</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Allergies:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.allergies }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Medications:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.medications }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Stroke:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.stroke }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Diabetes:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.diabetes }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Arthritis:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.arthritis }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Alcoholism:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.alcoholism }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <p>
+                                                                Tuberculosis:
+                                                            </p>
+                                                        </div>
+                                                        <div class="col">
+                                                            <p>
+                                                                <strong>{{ medical.tuberculosis }}</strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

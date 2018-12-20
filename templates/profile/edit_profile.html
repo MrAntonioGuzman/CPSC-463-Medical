@@ -1,0 +1,330 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<!-- Change to search medicine information -->
+{% block title %}
+    Edit Profile - Medical App
+{% endblock %}
+
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">Medi-Cal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <span class="navbar-text ml-auto">
+                    Welcome, {{ user.first_name }} {{ user.last_name }}
+                </span>
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'doctors' %}">Doctors</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'view_profile' %}">Profile <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+                       href="#list-home" role="tab" aria-controls="home">Account</a>
+                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+                       href="#list-profile" role="tab" aria-controls="profile">Personal</a>
+                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list"
+                       href="#list-messages" role="tab" aria-controls="messages">Insurance</a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
+                       href="#list-settings" role="tab" aria-controls="settings">Medical</a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
+                       href="#list-emergency" role="tab" aria-controls="settings">Emergency</a>
+                </div>
+            </div>
+            <div class="col-8">
+                <!-- Account Information Edit -->
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                         aria-labelledby="list-home-list">
+                        <div class="row align-self-center w-100">
+                            <div class="col ml-5">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title text-center mb-0">Account Information</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container col-10">
+                                            <form method="post" novalidate>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        {{ signupForm.first_name| as_crispy_field}}
+                                                    </div>
+                                                    <div class="col">
+                                                        {{ signupForm.last_name|as_crispy_field }}
+                                                    </div>
+                                                </div>
+                                                {{ signupForm.email|as_crispy_field }}
+                                                {{ signupForm.username|as_crispy_field }}
+                                                {{ signupForm.password1|as_crispy_field }}
+                                                {{ signupForm.password2|as_crispy_field }}
+
+                                                <button type="submit" class="btn btn-success mt-3 mb-3">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Account Information Edit -->
+
+                    <!-- Personal Information Edit -->
+                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                        <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                             aria-labelledby="list-home-list">
+                            <div class="row align-self-center w-100">
+                                <div class="col ml-5">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center mb-0">Personal Information</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container col-10">
+                                                <form method="post" novalidate>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ personalForm.street_address|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ personalForm.city|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ personalForm.state|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ personalForm.zip|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    {{ personalForm.primary_phone|as_crispy_field }}
+                                                    {{ personalForm.social_security|as_crispy_field }}
+                                                    {{ personalForm.dob|as_crispy_field }}
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ personalForm.sex|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ personalForm.martial_status|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-success mt-3 mb-3">Submit
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END Personal Information Edit -->
+
+                    <!-- Insurance Information Edit -->
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                             aria-labelledby="list-home-list">
+                            <div class="row align-self-center w-100">
+                                <div class="col ml-5">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center mb-0">Insurance Information</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container col-10">
+                                                <form method="post" novalidate>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ insuranceForm.id_number|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ insuranceForm.insurance_company|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    {{ insuranceForm.address|as_crispy_field }}
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ insuranceForm.city|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ insuranceForm.state|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ insuranceForm.zip|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    {{ insuranceForm.primary_phone|as_crispy_field }}
+
+
+                                                    <button type="submit" class="btn btn-success mt-3 mb-3">Submit
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Insurance Information Edit -->
+
+                    <!-- Medical Information Edit -->
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                             aria-labelledby="list-home-list">
+
+                            <div class="row align-self-center w-100">
+                                <div class="col ml-5">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center mb-0">Medical Information</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container col-10">
+                                                <form method="post" novalidate>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ patientForm.height|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ patientForm.weight|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ patientForm.blood_type|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ patientForm.stroke|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ patientForm.diabetes|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ patientForm.alcoholism|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ patientForm.arthritis|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ patientForm.tuberculosis|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    {{ patientForm.allergies|as_crispy_field }}
+                                                    {{ patientForm.medications|as_crispy_field }}
+                                                    <button type="submit" class="btn btn-success mt-3 mb-3">Submit
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Medical Information Edit -->
+
+
+                    <!-- Emergency Information Edit -->
+                    <div class="tab-pane fade" id="list-emergency" role="tabpanel" aria-labelledby="list-settings-list">
+                        <div class="tab-pane fade show active" id="list-home" role="tabpanel"
+                             aria-labelledby="list-home-list">
+                            <div class="row align-self-center w-100">
+                                <div class="col ml-5">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title text-center mb-0">Emergency Information</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="container col-10">
+                                                <form method="post" novalidate>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ emergencyForm.first_name|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ emergencyForm.last_name|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+                                                    {{ emergencyForm.address|as_crispy_field }}
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ emergencyForm.city|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ emergencyForm.state|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ emergencyForm.zip|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            {{ emergencyForm.relationship|as_crispy_field }}
+                                                        </div>
+                                                        <div class="col">
+                                                            {{ emergencyForm.primary_phone|as_crispy_field }}
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="submit" class="btn btn-success mt-3 mb-3">Submit
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END Emergency Information Edit -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

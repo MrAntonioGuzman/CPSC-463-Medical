@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Schedule - Medical App
+{% endblock %}
+
+{% block header %}
+    <header>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'home' %}">Medi-Cal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <span class="navbar-text ml-auto">
+                    Welcome, {{ user.first_name }} {{ user.last_name }}
+                </span>
+
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'doctors' %}">Doctors</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'view_profile' %}">Profile</a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+    </header>
+
+    {% if success %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <p class="text-center mb-0"><strong>Appointment Scheduled!</strong> Make sure to arrive 15 minutes early.
+            </p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+
+{% block main %}
+    <main>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <!-- Sub menu showing options for dashboard -->
+                <div class="col-2">
+                    <div class="list-group">
+                        <a href="{% url 'home' %}" class="list-group-item list-group-item-action">
+                            News
+                        </a>
+                        <a href="{% url 'schedule_appt' %}" class="list-group-item list-group-item-action active">
+                            Schedule
+                        </a>
+                        <a href="{% url 'inbox' %}" class="list-group-item list-group-item-action">
+                            Inbox
+                        </a>
+                        <a href="{% url 'provider' %}" class="list-group-item list-group-item-action">
+                            Provider
+                        </a>
+                        <a href="{% url 'recipes' %}" class="list-group-item list-group-item-action">
+                            Medicine Info
+                        </a>
+                        <a href="{% url 'b4-logout' %}" class="list-group-item list-group-item-action">
+                            Log out
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-10">
+                    <div class="card mb-5">
+                        <div class="card-header">
+                            <h5 class="text-center">Schedule Appointment</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="container col-10">
+                                <form method="post" novalidate>
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        <div class="col">
+                                            {{ form.first_name|as_crispy_field }}
+                                        </div>
+
+                                        <div class="col">
+                                            {{ form.last_name|as_crispy_field }}
+                                        </div>
+                                    </div>
+
+                                    {{ form.date|as_crispy_field }}
+                                    {{ form.reason|as_crispy_field }}
+
+                                    <button class="btn btn-primary" type="submit">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            $('#id_date').datepicker();
+        });
+    </script>
+{% endblock %}

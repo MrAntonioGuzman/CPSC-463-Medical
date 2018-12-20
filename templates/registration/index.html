@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+{% endblock %}
+
+{% block main %}
+    <div class="container d-flex h-100 {% block container_stuff %}{% endblock %}">
+        <div class="row align-self-center w-100">
+            <div class="col-8 mx-auto">
+                <div class="card {% block card_stuff %}{% endblock %}">
+                    <div class="card-body">
+                        {% block card-header %}{% endblock %}
+                        <div class="row">
+                            <div class="col text-center mt-3">
+                                <h1 class="display-4 mb-0">
+                                    {% block card-title %}{% endblock %}
+                                </h1>
+                                <p class="lead">{% block card-subtitle %}{% endblock %}</p>
+                            </div>
+                        </div>
+                        <hr class="col-8 mx-auto mt-0">
+                        {% block card-content %}{% endblock %}
+                    </div>
+                    {% block card-footer %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
