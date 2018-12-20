@@ -1,5 +1,7 @@
 # CPSC-463-Medical
-CPSC 463 Team Medical
+CPSC 463
+
+Team Medical
 
 Group Members:
 
